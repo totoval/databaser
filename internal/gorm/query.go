@@ -28,15 +28,15 @@ func (q *Query) SetConnector(connector internal.Connector) {
 	q.client = q.connector.Client().(*gorm.DB)
 }
 func (q *Query) Raw(query string, bindings ...interface{}) facade.Scanner {
-	return &Scan{gormDB: q.client.Raw(query, bindings)}
+	return &Scan{gormDB: q.client.Raw(query, bindings...)}
 }
 
 func (q *Query) SelectOne(query string, bindings ...interface{}) facade.OneScanner {
-	return q.Raw(query, bindings)
+	return q.Raw(query, bindings...)
 }
 
 func (q *Query) Select(query string, bindings ...interface{}) facade.Scanner {
-	return q.Raw(query, bindings)
+	return q.Raw(query, bindings...)
 }
 
 func (q *Query) Insert(query string, bindings ...interface{}) (lastInsertId int64, err error) {
@@ -45,7 +45,7 @@ func (q *Query) Insert(query string, bindings ...interface{}) (lastInsertId int6
 		return 0, err
 	}
 
-	result, err := db.Exec(query, bindings)
+	result, err := db.Exec(query, bindings...)
 	if err != nil {
 		return 0, err
 	}
@@ -54,11 +54,11 @@ func (q *Query) Insert(query string, bindings ...interface{}) (lastInsertId int6
 }
 
 func (q *Query) Update(query string, bindings ...interface{}) (affectedRows int64, err error) {
-	return q.Statement(query, bindings)
+	return q.Statement(query, bindings...)
 }
 
 func (q *Query) Delete(query string, bindings ...interface{}) (affectedRows int64, err error) {
-	return q.Statement(query, bindings)
+	return q.Statement(query, bindings...)
 }
 
 func (q *Query) Statement(query string, bindings ...interface{}) (affectedRows int64, err error) {

@@ -22,5 +22,5 @@ func (qpb QueryPrepareBindings) PrepareBindings(bindings ...interface{}) []inter
 			_bindings = append(_bindings, binding)
 		}
 	}
-	return bindings
+	return _bindings
 }
