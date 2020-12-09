@@ -28,7 +28,6 @@ func (q *Query) SetConnector(connector internal.Connector) {
 	q.client = q.connector.Client().(*gorm.DB)
 }
 func (q *Query) Raw(query string, bindings ...interface{}) facade.Scanner {
-	q.client.Raw(query, bindings)
 	return &Scan{gormDB: q.client.Raw(query, bindings)}
 }
 
